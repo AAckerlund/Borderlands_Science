@@ -1,3 +1,5 @@
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -5,24 +7,57 @@ import java.util.Scanner;
 public class Driver
 {
     Graph g;
-    ArrayList<ArrayList<Node>> best;//stores the graph with the highest calculated score.
+    Graph best;//stores the graph with the highest calculated score.
     int maxSpacers, spacersLeft;
     public Driver()
     {
         g = new Graph();
-        getNumSpacers();
-        best = g.getGraph();
+        best = g;
         spacersLeft = maxSpacers;
-        solve();
+        best = solve(best, getNumSpacers(), Integer.MIN_VALUE);
         print(best);
     }
     public static void main(String[] args)
     {
         new Driver();
     }
-    public void solve()//Will attempt to brute-force the best (highest scoring) solution to the problem.
+    public Graph solve(Graph graph, int spacersLeft, int highScore)//Will attempt to brute-force the best (highest scoring) solution to the problem.
     {
-        //TODO: This is gonna suck.
+        Graph best = new Graph(graph.getGraph());
+        int high = highScore;
+        //loop through each node in the graph
+        for(int i = 0; i < graph.getGraph().get(0).size(); i++)
+        {
+            for(int j = 0; j < graph.getGraph().size(); j++)
+            {
+                if(spacersLeft > 0)//if we have a spacer to insert
+                {
+                    if(graph.insertNode(j, i))//if we can insert a spacer node
+                    {
+                        int tmpScore = score(graph.getGraph());
+                        if(high < tmpScore)//if the new score is higher than the current best
+                        {
+                            //store the new high score and associated graph
+                            high = tmpScore;
+                            best = new Graph(graph.getGraph());
+                        }
+                        Graph tmp = solve(graph, spacersLeft -= 1, high);
+                        if(score(tmp.getGraph()) > score(best.getGraph()))
+                        {
+                            high = score(tmp.getGraph());
+                            best = new Graph(tmp.getGraph());
+                        }
+                        graph.removeNode(j, i);
+                        ++spacersLeft;
+                    }
+                }
+                else//no spacers left to insert
+                {
+                    return best;
+                }
+            }
+        }
+        return best;
     }
 
     /**
@@ -33,11 +68,11 @@ public class Driver
     public int score(ArrayList<ArrayList<Node>> graph)
     {
         int score = 0;
-        for (int i = 0; i < graph.size(); i++)
+        for(int i = 0; i < graph.get(0).size(); i++)
         {
-            for(int j = 0; j < graph.get(i).size(); j++)
+            for(ArrayList<Node> nodes : graph)
             {
-                if((graph.get(i).get(j).getColor() == g.getValidColor()[i][0].getColor() || graph.get(i).get(j).getColor() == g.getValidColor()[i][1].getColor()) && graph.get(i).get(j).getColor() != 0)
+                if((nodes.get(i).getColor() == g.getValidColor()[i][0].getColor() || nodes.get(i).getColor() == g.getValidColor()[i][1].getColor()) && nodes.get(i).getColor() != 0)
                 {
                     score++;
                 }
@@ -58,9 +93,9 @@ public class Driver
      */
     public boolean checkRow(int row, ArrayList<ArrayList<Node>> graph)
     {
-        for (int i = 0; i < graph.get(row).size(); i++)
+        for(ArrayList<Node> nodes : graph)
         {
-            if((graph.get(row).get(i).getColor() != g.getValidColor()[row][0].getColor() && graph.get(row).get(i).getColor() != g.getValidColor()[row][1].getColor()) || graph.get(row).get(i).getColor() == 0)
+            if((nodes.get(row).getColor() != g.getValidColor()[row][0].getColor() && nodes.get(row).getColor() != g.getValidColor()[row][1].getColor()) || nodes.get(row).getColor() == 0)
             {
                 return false;
             }
@@ -71,10 +106,10 @@ public class Driver
     /**
      * gets the number of spacer blocks available for use.
      */
-    public void getNumSpacers()
+    public int getNumSpacers()
     {
         Scanner in = new Scanner(System.in);
-        int input = -1;
+        int input;
         System.out.print("How many spacer blocks do I have to work with?: ");
         try
         {
@@ -82,29 +117,33 @@ public class Driver
             if(input < 1)
             {
                 System.out.println("Number is too small, please try again.");
-                getNumSpacers();
+                input = getNumSpacers();
             }
         }
         catch(InputMismatchException ex)
         {
-            System.out.println("Whoah there, you need to enter a number like 5 or 10 or something.");
-            getNumSpacers();
+            System.out.println("Whoa there, you need to enter a number like 5 or 10 or something.");
+            input = getNumSpacers();
         }
+        return input;
     }
 
     /**
      * prints out a given graph
      * @param graph the graph to be printed
      */
-    public void print(ArrayList<ArrayList<Node>> graph)
+    public void print(Graph graph)
     {
-        System.out.println("The best possible score is: " + score(graph));
+        System.out.println("The best possible score is: " + score(graph.getGraph()));
         System.out.println("It can be achieved using the following graph:");
-        for (int i = 0; i < graph.size(); i++)
+        for(int i = 0; i < graph.getGraph().get(0).size(); i++)
         {
-            for (int j = 0; j < graph.get(i).size(); j++)
+            System.out.print(g.getValidColor()[i][0].printColor() + " |");
+            System.out.print(g.getValidColor()[i][1].printColor() + " |");
+            System.out.print("|");
+            for(ArrayList<Node> nodes : graph.getGraph())
             {
-                System.out.print(graph.get(i).get(j).printColor());
+                System.out.print(nodes.get(i).printColor() + " |");
             }
             System.out.println();
         }

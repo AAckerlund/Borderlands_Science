@@ -10,25 +10,47 @@ public class Graph
     public Graph()
     {
         graph = readGraph();
-        validColor = readValidColors(graph.size());
+        validColor = readValidColors(graph.get(0).size());
         print();
     }
 
-    public boolean insertNode(int row, int col)
+    public Graph(ArrayList<ArrayList<Node>> graph)
     {
-        if(graph.get(row).get(0).getColor() != 0)//row is already filled
-            return false;
-        for (int i = col+1 ; i < graph.size(); i++)
+        this.graph = new ArrayList<ArrayList<Node>>();
+        for(int k = 0; k < graph.size(); k++)
         {
-            if(graph.get(row).get(i).getColor() == 0)//cannot insert a block above an empty block
+            this.graph.add(new ArrayList<Node>());
+            for(int l = 0; l < graph.get(k).size(); l++)
             {
-                return false;
+                this.graph.get(k).add(l, graph.get(k).get(l));
             }
         }
-        graph.get(row).add(col, new Node(9));
-        if(col != 0)
-            graph.get(row).remove(0);
+        validColor = readValidColors(graph.get(0).size());
+    }
+    public boolean insertNode(int row, int col)
+    {
+
+        try
+        {
+            if(graph.get(row).get(0).getColor() != 0)//row is already filled
+                return false;
+            if(graph.get(row).get(col).getColor() == 0)//node being replaced is empty (inserting a node above the row of scoreable blocks).
+                return false;
+            graph.get(row).remove(0);//remove an empty spot from the top of the graph
+            graph.get(row).add(col, new Node(9));
+        }
+        catch(Exception ignored)
+        {
+            System.out.println(row + " " + col);
+            return false;
+        }
         return true;
+    }
+
+    public void removeNode(int row, int col)
+    {
+        graph.get(row).remove(col);
+        graph.get(row).add(0, new Node(0));
     }
 
     /**
@@ -37,7 +59,6 @@ public class Graph
      */
     public ArrayList<ArrayList<Node>> readGraph()
     {
-//        System.out.println("readGraph");
         File f = new File("graph.txt");
         Scanner in = null;
         try
@@ -51,22 +72,20 @@ public class Graph
         }
 
         ArrayList<ArrayList<Node>> tmp = new ArrayList<>();
-        int counter = 0;
+        String line = in.nextLine();
+        int lineLength = line.length();
         while(in.hasNext())
         {
-            String line = in.nextLine();
-//            System.out.println(line);
-            for (int i = 0; i < line.length(); i++)
+            line = line + in.nextLine();
+        }
+
+        for(int i = 0; i < lineLength; i++)
+        {
+            tmp.add(new ArrayList<>());
+            for(int j = i; j < line.length(); j+=lineLength)
             {
-//                System.out.println(line.charAt(i));
-                if(i == 0)
-                {
-//                    System.out.println("New list");
-                    tmp.add(new ArrayList<>());
-                }
-                tmp.get(counter).add(new Node(Integer.parseInt(String.valueOf(line.charAt(i)))));
+                tmp.get(i).add(new Node(Integer.parseInt(String.valueOf(line.charAt(j)))));
             }
-            counter++;
         }
         return tmp;
     }
@@ -94,7 +113,6 @@ public class Graph
      */
     public Node[][] readValidColors(int height)
     {
-//        System.out.println("readValidColors");
         File f = new File("validColors.txt");
         Scanner in = null;
         try
@@ -141,15 +159,15 @@ public class Graph
     public void print()
     {
         System.out.println("Starting Graph");
-        for (int i = 0; i < graph.size(); i++)
-        {
-            System.out.print(validColor[i][0].printColor());
-            System.out.print(validColor[i][1].printColor());
-            System.out.print("|");
 
-            for (int j = 0; j < graph.get(i).size(); j++)
+        for(int i = 0; i < graph.get(0).size(); i++)
+        {
+            System.out.print(validColor[i][0].printColor() + " |");
+            System.out.print(validColor[i][1].printColor() + " |");
+            System.out.print("|");
+            for(int j = 0; j < graph.size(); j++)
             {
-                System.out.print(graph.get(i).get(j).printColor());
+                System.out.print(graph.get(j).get(i).printColor() + " |");
             }
             System.out.println();
         }

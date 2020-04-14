@@ -15,17 +15,17 @@ public class Node {
         switch(color)
         {
             case 1:
-                return "Flak |";
+                return "Flak";
             case 2:
-                return "Zane |";
+                return "Zane";
             case 3:
-                return "Amar |";
+                return "Amar";
             case 4:
-                return "Moze |";
+                return "Moze";
             case 9:
-                return "Spac |";
+                return "Spac";
             default:
-                return "     |";
+                return "    ";
         }
     }
 
