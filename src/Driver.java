@@ -14,21 +14,21 @@ public class Driver
         g = new Graph();
         best = g;
         spacersLeft = maxSpacers;
-        best = solve(best, getNumSpacers(), Integer.MIN_VALUE);
+        best = solve(best, getNumSpacers(), Integer.MIN_VALUE, 0, 0);
         print(best);
     }
     public static void main(String[] args)
     {
         new Driver();
     }
-    public Graph solve(Graph graph, int spacersLeft, int highScore)//Will attempt to brute-force the best (highest scoring) solution to the problem.
+    public Graph solve(Graph graph, int spacersLeft, int highScore, int row, int col)//Will attempt to brute-force the best (highest scoring) solution to the problem.
     {
         Graph best = new Graph(graph.getGraph());
         int high = highScore;
         //loop through each node in the graph
-        for(int i = 0; i < graph.getGraph().get(0).size(); i++)
+        for(int i = row; i < graph.getGraph().get(0).size(); i++)
         {
-            for(int j = 0; j < graph.getGraph().size(); j++)
+            for(int j = col; j < graph.getGraph().size(); j++)
             {
                 if(spacersLeft > 0)//if we have a spacer to insert
                 {
@@ -41,7 +41,7 @@ public class Driver
                             high = tmpScore;
                             best = new Graph(graph.getGraph());
                         }
-                        Graph tmp = solve(graph, spacersLeft -= 1, high);
+                        Graph tmp = solve(graph, spacersLeft -= 1, high, i, j);
                         if(score(tmp.getGraph()) > score(best.getGraph()))
                         {
                             high = score(tmp.getGraph());
