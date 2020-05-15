@@ -113,21 +113,6 @@ public class GUI extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         Object action = e.getSource();
-        /*for(ArrayList<JButton> color : colorButtons)
-        {
-            for(JButton jButton : color)
-            {
-                if(action == jButton)
-                {
-                    int num = Integer.parseInt(jButton.getText());
-                    if(num >= 4)
-                        num = 0;
-                    else
-                        num++;
-                    jButton.setText(String.valueOf(num));
-                }
-            }
-        }*/
 
         for(int i = 0; i < incDecrButtons.length; i++)
         {
@@ -154,7 +139,6 @@ public class GUI extends JFrame implements ActionListener
     public void sizeChange(int i, int j)
     {
         int numInc = Integer.parseInt(incDecrButtons[i][j].getText());
-        System.out.println(numInc + " " + i);
 
         if(i == 0)//height (outer arraylist)
         {
@@ -221,8 +205,6 @@ public class GUI extends JFrame implements ActionListener
             System.out.println("I should not be here");
         }
         resetFrame();
-
-        System.out.println("done");
     }
 
     public void buttonChange(int i, int j)//cycles through the possible images in the following order: empty -> amara -> zane -> flak -> moze -> empty
