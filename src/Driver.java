@@ -1,5 +1,3 @@
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -9,8 +7,10 @@ public class Driver
     Graph g;
     Graph best;//stores the graph with the highest calculated score.
     int maxSpacers, spacersLeft;
+    GUI gui;
     public Driver()
     {
+        gui = new GUI();
         g = new Graph();
         best = g;
         spacersLeft = maxSpacers;
