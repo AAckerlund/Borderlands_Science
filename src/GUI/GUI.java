@@ -6,14 +6,13 @@ import java.awt.*;
 public class GUI extends JFrame// implements ActionListener
 {
     JFrame frame;
-
     PuzzleFrame pf;
+    SpacerFrame sf;
 
     public GUI()
     {
         //initialize frame
         frame = new JFrame("Borderlands Science Solver");
-
         pf = new PuzzleFrame(this);
 
         //add panels to frame
@@ -27,6 +26,8 @@ public class GUI extends JFrame// implements ActionListener
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        sf = new SpacerFrame();
     }
     public void resetFrame()
     {
@@ -34,5 +35,10 @@ public class GUI extends JFrame// implements ActionListener
         frame.invalidate();
         frame.validate();
         frame.setLocationRelativeTo(null);
+    }
+
+    public PuzzleFrame getPf()
+    {
+        return pf;
     }
 }

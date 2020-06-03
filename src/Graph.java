@@ -1,19 +1,23 @@
+import GUI.GUI;
+import GUI.PuzzleFrame;
+
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Graph
 {
     private ArrayList<ArrayList<Node>> graph;
     private Node[][] validColor;
-    public Graph()
+    public Graph(PuzzleFrame pf)
     {
-        graph = readGraph();
+        graph = readGraph(pf);
         validColor = readValidColors();
         print();
     }
 
     public Graph(ArrayList<ArrayList<Node>> graph)
     {
-        this.graph = new ArrayList<ArrayList<Node>>();
+        this.graph = new ArrayList<>();
         for(int k = 0; k < graph.size(); k++)
         {
             this.graph.add(new ArrayList<Node>());
@@ -53,9 +57,41 @@ public class Graph
      * reads in graph from file
      * @return a ready to use graph
      */
-    public ArrayList<ArrayList<Node>> readGraph()
+    public ArrayList<ArrayList<Node>> readGraph(PuzzleFrame pf)
     {
-        return null;//TODO
+        ArrayList<ArrayList<Node>> nodes = new ArrayList<>();
+        for(int i = 0; i < pf.getColorButtons().size(); i++)
+        {
+            nodes.add(new ArrayList<>());
+            for(int j = 0; j < pf.getColorButtons().get(0).size(); j++)
+            {
+                int col;
+                ImageIcon icon = (ImageIcon) pf.getColorButtons().get(i).get(j).getIcon();
+                switch(icon.getDescription())
+                {
+                    case "images/spacer.png":
+                        col = 9;
+                        break;
+                    case "images/flak.png":
+                        col = 1;
+                        break;
+                    case "images/zane.png":
+                        col = 2;
+                        break;
+                    case "images/amara.png":
+                        col = 3;
+                        break;
+                    case "images/moze.png":
+                        col = 4;
+                        break;
+                    default:
+                        col = 0;
+                }
+
+                nodes.get(i).add(new Node(col));
+            }
+        }
+        return nodes;
     }
 
     /**

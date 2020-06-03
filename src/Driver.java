@@ -13,7 +13,7 @@ public class Driver
     public Driver()
     {
         gui = new GUI();
-        g = new Graph();
+        g = new Graph(gui.getPf());
         best = g;
         spacersLeft = maxSpacers;
         best = solve(best, getNumSpacers(), Integer.MIN_VALUE, 0, 0);
