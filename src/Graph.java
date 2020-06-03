@@ -1,4 +1,3 @@
-import GUI.GUI;
 import GUI.PuzzleFrame;
 
 import javax.swing.*;
@@ -87,7 +86,6 @@ public class Graph
                     default:
                         col = 0;
                 }
-
                 nodes.get(i).add(new Node(col));
             }
         }
