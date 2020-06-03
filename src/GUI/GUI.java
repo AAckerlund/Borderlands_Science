@@ -1,3 +1,5 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -5,97 +7,24 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GUI extends JFrame implements ActionListener
+public class GUI extends JFrame// implements ActionListener
 {
     JFrame frame;
-    JPanel spacerPanel, mainPanel, validColorPanel, inputPanel;
 
-    ArrayList<ArrayList<JButton>> colorButtons;
-
-    JButton[][] incDecrButtons;
-    JLabel heightLabel, widthLabel;
-
-    ImageIcon empty, spacer, amara, zane, flak, moze;
+    PuzzleFrame pf;
 
     public GUI()
     {
-        empty = new ImageIcon("images/empty.png");
-        spacer = new ImageIcon("images/spacer.png");
-        amara = new ImageIcon("images/amara.png");
-        zane = new ImageIcon("images/zane.png");
-        flak = new ImageIcon("images/flak.png");
-        moze = new ImageIcon("images/moze.png");
         //initialize frame
         frame = new JFrame("Borderlands Science Solver");
 
-        //initialize panels
-        spacerPanel = new JPanel();
-        mainPanel = new JPanel();
-        validColorPanel = new JPanel();
-        inputPanel = new JPanel();
-
-        //initialize main buttons
-        colorButtons = new ArrayList<>();
-
-        for(int i = 0; i < 4; i++)
-        {
-            colorButtons.add(new ArrayList<>());
-            for(int j = 0; j < 5; j++)
-            {
-                colorButtons.get(i).add(new JButton());
-                //colorButtons.get(i).get(j).setSize(80, 80);
-                colorButtons.get(i).get(j).addActionListener(this);
-                colorButtons.get(i).get(j).setIcon(empty);
-                colorButtons.get(i).get(j).setBackground(Color.black);
-                mainPanel.add(colorButtons.get(i).get(j));
-            }
-        }
-
-        mainPanel.setLayout(new GridLayout(colorButtons.size(), colorButtons.get(0).size()));
-
-        //set up the increment and decrement buttons
-        incDecrButtons = new JButton[2][4];
-
-        heightLabel = new JLabel("Height:");
-        widthLabel = new JLabel("Width:");
-        inputPanel.add(heightLabel);
-        for(int i = 0; i < incDecrButtons.length; i++)
-        {
-            if(i == 1)
-            {
-                inputPanel.add(widthLabel);
-            }
-            for(int j = 0; j < incDecrButtons[i].length; j++)
-            {
-                switch(j)
-                {
-                    case 0:
-                        incDecrButtons[i][j] = new JButton("-5");
-                        break;
-                    case 1:
-                        incDecrButtons[i][j] = new JButton("-1");
-                        break;
-                    case 2:
-                        incDecrButtons[i][j] = new JButton("+1");
-                        break;
-                    case 3:
-                        incDecrButtons[i][j] = new JButton("+5");
-                        break;
-                }
-                incDecrButtons[i][j].addActionListener(this);
-                inputPanel.add(incDecrButtons[i][j]);
-            }
-
-        }
-
-        inputPanel.setLayout(new GridLayout(incDecrButtons.length, incDecrButtons[0].length+1));
-
+        pf = new PuzzleFrame(this);
 
         //add panels to frame
-        frame.add(spacerPanel, BorderLayout.EAST);
-        frame.add(mainPanel, BorderLayout.CENTER);
-        frame.add(validColorPanel, BorderLayout.WEST);
-        frame.add(inputPanel, BorderLayout.SOUTH);
+        frame.add(pf.getSpacerPanel(), BorderLayout.EAST);
+        frame.add(pf.getMainPanel(), BorderLayout.CENTER);
+        frame.add(pf.getValidColorPanel(), BorderLayout.WEST);
+        frame.add(pf.getInputPanel(), BorderLayout.SOUTH);
 
         //more frame stuff
         frame.setSize(500,500);
@@ -103,12 +32,14 @@ public class GUI extends JFrame implements ActionListener
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
-
-    public int randNum()
+    public void resetFrame()
     {
-        return new Random().nextInt(4);
+        frame.pack();
+        frame.invalidate();
+        frame.validate();
+        frame.setLocationRelativeTo(null);
     }
-
+/*
     @Override
     public void actionPerformed(ActionEvent e)
     {
@@ -168,6 +99,7 @@ public class GUI extends JFrame implements ActionListener
                     colorButtons.get(k).get(l).setBackground(Color.black);
                 }
             }
+            heightLabel.setText("Height (" + colorButtons.size() + "):");
         }
         else if(i == 1)//width
         {
@@ -199,6 +131,7 @@ public class GUI extends JFrame implements ActionListener
                     colorButton.get(l + 1).setBackground(Color.black);
                 }
             }
+            widthLabel.setText("Height (" + colorButtons.get(0).size() + "):");
         }
         else
         {
@@ -256,5 +189,5 @@ public class GUI extends JFrame implements ActionListener
                 mainPanel.add(jButton);
             }
         }
-    }
+    }*/
 }
