@@ -92,11 +92,6 @@ public class PuzzleFrame implements ActionListener
         inputPanel.setLayout(new GridLayout(incDecrButtons.length, incDecrButtons[0].length+1));
     }
 
-    public int randNum()
-    {
-        return new Random().nextInt(4);
-    }
-
     @Override
     public void actionPerformed(ActionEvent e)
     {
