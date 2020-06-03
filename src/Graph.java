@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Graph
 {
@@ -10,7 +7,7 @@ public class Graph
     public Graph()
     {
         graph = readGraph();
-        validColor = readValidColors(graph.get(0).size());
+        validColor = readValidColors();
         print();
     }
 
@@ -25,11 +22,10 @@ public class Graph
                 this.graph.get(k).add(l, graph.get(k).get(l));
             }
         }
-        validColor = readValidColors(graph.get(0).size());
+        validColor = readValidColors();
     }
     public boolean insertNode(int row, int col)
     {
-
         try
         {
             if(graph.get(row).get(0).getColor() != 0)//row is already filled
@@ -59,82 +55,16 @@ public class Graph
      */
     public ArrayList<ArrayList<Node>> readGraph()
     {
-        File f = new File("graph.txt");
-        Scanner in = null;
-        try
-        {
-            in = new Scanner(f);
-        }
-        catch(FileNotFoundException ex)//if there is a problem reading in the file return null.
-        {
-            System.out.println("No file: graph");
-            System.exit(1);
-        }
-
-        ArrayList<ArrayList<Node>> tmp = new ArrayList<>();
-        String line = in.nextLine();
-        int lineLength = line.length();
-        while(in.hasNext())
-        {
-            line = line + in.nextLine();
-        }
-
-        for(int i = 0; i < lineLength; i++)
-        {
-            tmp.add(new ArrayList<>());
-            for(int j = i; j < line.length(); j+=lineLength)
-            {
-                tmp.get(i).add(new Node(Integer.parseInt(String.valueOf(line.charAt(j)))));
-            }
-        }
-        return tmp;
-    }
-
-    /**
-     * prints out the current state of the graph
-     */
-    public void printGraph()
-    {
-        System.out.println("printGraph");
-        for (int i = 0; i < graph.size(); i++)
-        {
-            for (int j = 0; j < graph.get(i).size(); j++)
-            {
-                System.out.print(graph.get(i).get(j).printColor());
-            }
-            System.out.println();
-        }
+        return null;//TODO
     }
 
     /**
      * reads in the valid colors for the graph
-     * @param height the height of the graph
      * @return a list of valid colors for each row of the graph
      */
-    public Node[][] readValidColors(int height)
+    public Node[][] readValidColors()
     {
-        File f = new File("validColors.txt");
-        Scanner in = null;
-        try
-        {
-            in = new Scanner(f);
-        }
-        catch(FileNotFoundException ex)
-        {
-            System.out.println("No file: validColors");
-            System.exit(1);
-        }
-
-        Node[][] tmp = new Node[height][2];
-        int counter = 0;
-        while(in.hasNext())
-        {
-            String line = in.nextLine();
-            tmp[counter][0] = new Node(Integer.parseInt(String.valueOf(line.charAt(0))));
-            tmp[counter][1] = new Node(Integer.parseInt(String.valueOf(line.charAt(1))));
-            counter++;
-        }
-        return tmp;
+        return null;//TODO
     }
 
     /**
@@ -143,11 +73,11 @@ public class Graph
     public void printValidColors()
     {
         System.out.println("printValidColors");
-        for (int i = 0; i < validColor.length; i++)
+        for(Node[] nodes : validColor)
         {
-            for (int j = 0; j < validColor[i].length; j++)
+            for(Node node : nodes)
             {
-                System.out.print(validColor[i][j].printColor());
+                System.out.print(node.printColor());
             }
             System.out.println();
         }
@@ -165,9 +95,9 @@ public class Graph
             System.out.print(validColor[i][0].printColor() + " |");
             System.out.print(validColor[i][1].printColor() + " |");
             System.out.print("|");
-            for(int j = 0; j < graph.size(); j++)
+            for(ArrayList<Node> nodes : graph)
             {
-                System.out.print(graph.get(j).get(i).printColor() + " |");
+                System.out.print(nodes.get(i).printColor() + " |");
             }
             System.out.println();
         }
