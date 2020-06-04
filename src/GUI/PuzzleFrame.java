@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class PuzzleFrame implements ActionListener
 {
@@ -259,5 +258,10 @@ public class PuzzleFrame implements ActionListener
     public JPanel getInputPanel()
     {
         return inputPanel;
+    }
+
+    public ArrayList<ArrayList<JButton>> getColorButtons()
+    {
+        return colorButtons;
     }
 }
