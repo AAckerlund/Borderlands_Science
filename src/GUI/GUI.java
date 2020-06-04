@@ -8,21 +8,21 @@ public class GUI extends JFrame// implements ActionListener
     JFrame frame;
     private PuzzleFrame pf;
     private SpacerFrame sf;
-    private BonusFrame bf;
+    private ValidColorFrame vcf;
 
     public GUI()
     {
         //initialize frame
         frame = new JFrame("Borderlands Science Solver");
         pf = new PuzzleFrame(this);
-        bf = new BonusFrame(this);
+        vcf = new ValidColorFrame(this);
         sf = new SpacerFrame();
 
         //add panels to frame
         frame.add(pf.getMainPanel(), BorderLayout.CENTER);
         frame.add(pf.getInputPanel(), BorderLayout.SOUTH);
 
-        frame.add(bf.getMainPanel(), BorderLayout.WEST);
+        frame.add(vcf.getMainPanel(), BorderLayout.WEST);
 
         frame.add(sf.getMainPanel(), BorderLayout.EAST);
         //more frame stuff
@@ -76,8 +76,8 @@ public class GUI extends JFrame// implements ActionListener
         return pf;
     }
 
-    public BonusFrame getBf()
+    public ValidColorFrame getVCf()
     {
-        return bf;
+        return vcf;
     }
 }

@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class BonusFrame implements ActionListener
+public class ValidColorFrame implements ActionListener
 {
     GUI gui;
     JPanel mainPanel;
@@ -14,7 +14,7 @@ public class BonusFrame implements ActionListener
     ArrayList<JButton[]> bonusButtons;
     ImageIcon empty;
     
-    public BonusFrame(GUI gui)
+    public ValidColorFrame(GUI gui)
     {
         this.gui = gui;
         mainPanel = new JPanel();

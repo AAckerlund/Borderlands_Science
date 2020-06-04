@@ -1,4 +1,4 @@
-import GUI.BonusFrame;
+import GUI.ValidColorFrame;
 import GUI.GUI;
 import GUI.PuzzleFrame;
 
@@ -12,7 +12,7 @@ public class Graph
     public Graph(GUI gui)
     {
         graph = readGraph(gui.getPf());
-        validColor = readValidColors(gui.getBf());
+        validColor = readValidColors(gui.getVCf());
         print();
     }
 
@@ -27,7 +27,7 @@ public class Graph
                 this.graph.get(k).add(l, graph.get(k).get(l));
             }
         }
-        validColor = readValidColors(gui.getBf());
+        validColor = readValidColors(gui.getVCf());
     }
     public boolean insertNode(int row, int col)
     {
@@ -76,14 +76,14 @@ public class Graph
      * reads in the valid colors for the graph
      * @return a list of valid colors for each row of the graph
      */
-    public Node[][] readValidColors(BonusFrame bf)
+    public Node[][] readValidColors(ValidColorFrame vcf)
     {
         Node[][] valid = new Node[graph.size()][2];
         for(int i = 0; i < valid.length; i++)
         {
             for(int j = 0; j < valid[i].length; j++)
             {
-                valid[i][j] = new Node(iconToInt((ImageIcon) bf.getBonusButtons().get(i)[j].getIcon()));
+                valid[i][j] = new Node(iconToInt((ImageIcon) vcf.getBonusButtons().get(i)[j].getIcon()));
             }
         }
         return valid;
