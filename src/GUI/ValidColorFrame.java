@@ -19,7 +19,7 @@ public class ValidColorFrame implements ActionListener
         this.gui = gui;
         mainPanel = new JPanel();
 
-        empty = new ImageIcon("images/empty.png");
+        empty = new ImageIcon("images/blank.png");
 
         bonusButtons = new ArrayList<>();
         for(int i = 0; i < gui.getPf().getColorButtons().size(); i++)
@@ -50,8 +50,24 @@ public class ValidColorFrame implements ActionListener
                 if(action == jButton)
                 {
                     jButton.setIcon(gui.buttonChange(jButton.getIcon()));
+                    if(jButton.getIcon().toString().equals("images/empty.png"))
+                    {
+                        jButton.setIcon(empty);
+                    }
                 }
             }
+        }
+    }
+
+    public void sizeChange(int k)
+    {
+        getBonusButtons().add(new JButton[2]);
+        for(int l = 0; l < 2; l++)
+        {
+            getBonusButtons().get(k)[l] = new JButton();
+            getBonusButtons().get(k)[l].addActionListener(this);
+            getBonusButtons().get(k)[l].setIcon(empty);
+            getBonusButtons().get(k)[l].setBackground(Color.black);
         }
     }
 
