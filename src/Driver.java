@@ -13,7 +13,7 @@ public class Driver
     public Driver()
     {
         gui = new GUI();
-        g = new Graph(gui.getPf());
+        g = new Graph(gui);
         best = g;
         spacersLeft = maxSpacers;
         best = solve(best, getNumSpacers(), Integer.MIN_VALUE, 0, 0);
@@ -25,7 +25,7 @@ public class Driver
     }
     public Graph solve(Graph graph, int spacersLeft, int highScore, int row, int col)//Will attempt to brute-force the best (highest scoring) solution to the problem.
     {
-        Graph best = new Graph(graph.getGraph());
+        Graph best = new Graph(graph.getGraph(), gui);
         int high = highScore;
         //loop through each node in the graph
         for(int i = row; i < graph.getGraph().get(0).size(); i++)
@@ -41,13 +41,13 @@ public class Driver
                         {
                             //store the new high score and associated graph
                             high = tmpScore;
-                            best = new Graph(graph.getGraph());
+                            best = new Graph(graph.getGraph(), gui);
                         }
                         Graph tmp = solve(graph, spacersLeft -= 1, high, i, j);
                         if(score(tmp.getGraph()) > score(best.getGraph()))
                         {
                             high = score(tmp.getGraph());
-                            best = new Graph(tmp.getGraph());
+                            best = new Graph(tmp.getGraph(), gui);
                         }
                         graph.removeNode(j, i);
                         ++spacersLeft;

@@ -1,3 +1,5 @@
+import GUI.BonusFrame;
+import GUI.GUI;
 import GUI.PuzzleFrame;
 
 import javax.swing.*;
@@ -7,25 +9,25 @@ public class Graph
 {
     private ArrayList<ArrayList<Node>> graph;
     private Node[][] validColor;
-    public Graph(PuzzleFrame pf)
+    public Graph(GUI gui)
     {
-        graph = readGraph(pf);
-        validColor = readValidColors();
+        graph = readGraph(gui.getPf());
+        validColor = readValidColors(gui.getBf());
         print();
     }
 
-    public Graph(ArrayList<ArrayList<Node>> graph)
+    public Graph(ArrayList<ArrayList<Node>> graph, GUI gui)
     {
         this.graph = new ArrayList<>();
         for(int k = 0; k < graph.size(); k++)
         {
-            this.graph.add(new ArrayList<Node>());
+            this.graph.add(new ArrayList<>());
             for(int l = 0; l < graph.get(k).size(); l++)
             {
                 this.graph.get(k).add(l, graph.get(k).get(l));
             }
         }
-        validColor = readValidColors();
+        validColor = readValidColors(gui.getBf());
     }
     public boolean insertNode(int row, int col)
     {
@@ -64,29 +66,7 @@ public class Graph
             nodes.add(new ArrayList<>());
             for(int j = 0; j < pf.getColorButtons().get(0).size(); j++)
             {
-                int col;
-                ImageIcon icon = (ImageIcon) pf.getColorButtons().get(i).get(j).getIcon();
-                switch(icon.getDescription())
-                {
-                    case "images/spacer.png":
-                        col = 9;
-                        break;
-                    case "images/flak.png":
-                        col = 1;
-                        break;
-                    case "images/zane.png":
-                        col = 2;
-                        break;
-                    case "images/amara.png":
-                        col = 3;
-                        break;
-                    case "images/moze.png":
-                        col = 4;
-                        break;
-                    default:
-                        col = 0;
-                }
-                nodes.get(i).add(new Node(col));
+                nodes.get(i).add(new Node(iconToInt((ImageIcon) pf.getColorButtons().get(i).get(j).getIcon())));
             }
         }
         return nodes;
@@ -96,9 +76,36 @@ public class Graph
      * reads in the valid colors for the graph
      * @return a list of valid colors for each row of the graph
      */
-    public Node[][] readValidColors()
+    public Node[][] readValidColors(BonusFrame bf)
     {
-        return null;//TODO
+        Node[][] valid = new Node[graph.size()][2];
+        for(int i = 0; i < valid.length; i++)
+        {
+            for(int j = 0; j < valid[i].length; j++)
+            {
+                valid[i][j] = new Node(iconToInt((ImageIcon) bf.getBonusButtons().get(i)[j].getIcon()));
+            }
+        }
+        return valid;
+    }
+
+    public int iconToInt(ImageIcon icon)
+    {
+        switch(icon.getDescription())
+        {
+            case "images/spacer.png":
+                return 9;
+            case "images/flak.png":
+                return 1;
+            case "images/zane.png":
+                return 2;
+            case "images/amara.png":
+                return 3;
+            case "images/moze.png":
+                return 4;
+            default:
+                return 0;
+        }
     }
 
     /**
@@ -126,8 +133,8 @@ public class Graph
 
         for(int i = 0; i < graph.get(0).size(); i++)
         {
-            System.out.print(validColor[i][0].printColor() + " |");
-            System.out.print(validColor[i][1].printColor() + " |");
+//            System.out.print(validColor[i][0].printColor() + " |");
+//            System.out.print(validColor[i][1].printColor() + " |");
             System.out.print("|");
             for(ArrayList<Node> nodes : graph)
             {

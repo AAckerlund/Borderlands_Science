@@ -42,6 +42,35 @@ public class GUI extends JFrame// implements ActionListener
         frame.setLocationRelativeTo(null);
     }
 
+    public Icon buttonChange(Icon img)//cycles through the possible images in the following order: empty -> amara -> zane -> flak -> moze -> empty
+    {
+        if(img.toString().equals("images/empty.png"))
+        {
+            img = new ImageIcon("images/amara.png");
+        }
+        else if(img.toString().equals("images/amara.png"))
+        {
+            img = new ImageIcon("images/zane.png");
+        }
+        else if(img.toString().equals("images/zane.png"))
+        {
+            img = new ImageIcon("images/flak.png");
+        }
+        else if(img.toString().equals("images/flak.png"))
+        {
+            img = new ImageIcon("images/moze.png");
+        }
+        else if(img.toString().equals("images/moze.png"))
+        {
+            img = new ImageIcon("images/empty.png");
+        }
+        else//something got messed up
+        {
+            img = new ImageIcon("images/empty.png");
+        }
+        return img;
+    }
+
     public PuzzleFrame getPf()
     {
         return pf;

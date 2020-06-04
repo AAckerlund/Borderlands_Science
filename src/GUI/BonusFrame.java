@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class BonusFrame implements ActionListener
 {
-    //JFrame frame;
+    GUI gui;
     JPanel mainPanel;
     
     ArrayList<JButton[]> bonusButtons;
@@ -16,6 +16,7 @@ public class BonusFrame implements ActionListener
     
     public BonusFrame(GUI gui)
     {
+        this.gui = gui;
         mainPanel = new JPanel();
 
         empty = new ImageIcon("images/empty.png");
@@ -41,7 +42,17 @@ public class BonusFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        //TODO make buttons change image on click
+        Object action = e.getSource();
+        for(JButton[] bonusButton : bonusButtons)
+        {
+            for(JButton jButton : bonusButton)
+            {
+                if(action == jButton)
+                {
+                    jButton.setIcon(gui.buttonChange(jButton.getIcon()));
+                }
+            }
+        }
     }
 
     public ArrayList<JButton[]> getBonusButtons()

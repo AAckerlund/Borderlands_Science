@@ -86,7 +86,6 @@ public class PuzzleFrame implements ActionListener
             }
 
         }
-
         inputPanel.setLayout(new GridLayout(incDecrButtons.length, incDecrButtons[0].length+1));
         mainPanel.setBackground(Color.black);
     }
@@ -106,13 +105,13 @@ public class PuzzleFrame implements ActionListener
                 }
             }
         }
-        for(int i = 0; i < colorButtons.size(); i++)
+        for(ArrayList<JButton> colorButton : colorButtons)
         {
-            for(int j = 0; j < colorButtons.get(i).size(); j++)
+            for(JButton jButton : colorButton)
             {
-                if(action == colorButtons.get(i).get(j))//changing the value of a button
+                if(action == jButton)
                 {
-                    buttonChange(i, j);
+                    jButton.setIcon(gui.buttonChange(jButton.getIcon()));
                 }
             }
         }
@@ -199,36 +198,6 @@ public class PuzzleFrame implements ActionListener
             System.out.println("I should not be here");
         }
         resetFrame();
-    }
-
-    public void buttonChange(int i, int j)//cycles through the possible images in the following order: empty -> amara -> zane -> flak -> moze -> empty
-    {
-        Icon img= colorButtons.get(i).get(j).getIcon();
-        if(img == empty)
-        {
-            img = amara;
-        }
-        else if(img == amara)
-        {
-            img = zane;
-        }
-        else if(img == zane)
-        {
-            img = flak;
-        }
-        else if(img == flak)
-        {
-            img = moze;
-        }
-        else if(img == moze)
-        {
-            img = empty;
-        }
-        else//something got messed up
-        {
-            img = empty;
-        }
-        colorButtons.get(i).get(j).setIcon(img);
     }
 
     public void resetFrame()
