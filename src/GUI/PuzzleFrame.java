@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class PuzzleFrame implements ActionListener
 {
     GUI gui;
-    JPanel spacerPanel, mainPanel, validColorPanel, inputPanel;
+    JPanel spacerPanel, mainPanel, inputPanel;
 
     ArrayList<ArrayList<JButton>> colorButtons;
 
@@ -31,7 +31,6 @@ public class PuzzleFrame implements ActionListener
         //initialize panels
         spacerPanel = new JPanel();
         mainPanel = new JPanel();
-        validColorPanel = new JPanel();
         inputPanel = new JPanel();
 
         //initialize main buttons
@@ -89,6 +88,7 @@ public class PuzzleFrame implements ActionListener
         }
 
         inputPanel.setLayout(new GridLayout(incDecrButtons.length, incDecrButtons[0].length+1));
+        mainPanel.setBackground(Color.black);
     }
 
     @Override
@@ -135,6 +135,7 @@ public class PuzzleFrame implements ActionListener
                     for(int k = 0; k < Math.abs(numInc); k++)
                     {
                         colorButtons.remove(colorButtons.size()-1);
+                        gui.getBf().getBonusButtons().remove(colorButtons.size()-1);
                     }
                 }
             }
@@ -148,6 +149,15 @@ public class PuzzleFrame implements ActionListener
                     colorButtons.get(k).get(l).addActionListener(this);
                     colorButtons.get(k).get(l).setIcon(empty);
                     colorButtons.get(k).get(l).setBackground(Color.black);
+                }
+
+                gui.getBf().getBonusButtons().add(new JButton[2]);
+                for(int l = 0; l < 2; l++)
+                {
+                    gui.getBf().getBonusButtons().get(k)[l] = new JButton();
+                    gui.getBf().getBonusButtons().get(k)[l].addActionListener(this);
+                    gui.getBf().getBonusButtons().get(k)[l].setIcon(empty);
+                    gui.getBf().getBonusButtons().get(k)[l].setBackground(Color.black);
                 }
             }
             heightLabel.setText("Height (" + colorButtons.size() + "):");
@@ -225,6 +235,7 @@ public class PuzzleFrame implements ActionListener
     {
         addButtons();
         mainPanel.setLayout(new GridLayout(colorButtons.size(), colorButtons.get(0).size()));
+        gui.getBf().getMainPanel().setLayout(new GridLayout(colorButtons.size(), 2));
         gui.resetFrame();
     }
 
@@ -238,6 +249,14 @@ public class PuzzleFrame implements ActionListener
                 mainPanel.add(jButton);
             }
         }
+        gui.getBf().getMainPanel().removeAll();
+        for(int i = 0; i < colorButtons.size(); i++)
+        {
+            for(int j = 0; j < 2; j++)
+            {
+                gui.getBf().getMainPanel().add(gui.getBf().getBonusButtons().get(i)[j]);
+            }
+        }
     }
 
     public JPanel getMainPanel()
@@ -248,11 +267,6 @@ public class PuzzleFrame implements ActionListener
     public JPanel getSpacerPanel()
     {
         return spacerPanel;
-    }
-
-    public JPanel getValidColorPanel()
-    {
-        return validColorPanel;
     }
 
     public JPanel getInputPanel()
