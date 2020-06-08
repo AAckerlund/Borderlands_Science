@@ -16,12 +16,8 @@ public class Driver
         g = new Graph(gui);
         best = g;
         spacersLeft = maxSpacers;
-        best = solve(best, getNumSpacers(), Integer.MIN_VALUE, 0, 0);
-        print(best);
-    }
-    public static void main(String[] args)
-    {
-        new Driver();
+        //best = solve(best, gui.getInf().getSpacerNum(), Integer.MIN_VALUE, 0, 0);
+        //print(best);
     }
     public Graph solve(Graph graph, int spacersLeft, int highScore, int row, int col)//Will attempt to brute-force the best (highest scoring) solution to the problem.
     {
@@ -106,31 +102,6 @@ public class Driver
     }
 
     /**
-     * gets the number of spacer blocks available for use.
-     */
-    public int getNumSpacers()
-    {
-        Scanner in = new Scanner(System.in);
-        int input;
-        System.out.print("How many spacer blocks do I have to work with?: ");
-        try
-        {
-            input = in.nextInt();
-            if(input < 1)
-            {
-                System.out.println("Number is too small, please try again.");
-                input = getNumSpacers();
-            }
-        }
-        catch(InputMismatchException ex)
-        {
-            System.out.println("Whoa there, you need to enter a number like 5 or 10 or something.");
-            input = getNumSpacers();
-        }
-        return input;
-    }
-
-    /**
      * prints out a given graph
      * @param graph the graph to be printed
      */
@@ -149,5 +120,10 @@ public class Driver
             }
             System.out.println();
         }
+    }
+
+    public static void main(String[] args)
+    {
+        new Driver();
     }
 }

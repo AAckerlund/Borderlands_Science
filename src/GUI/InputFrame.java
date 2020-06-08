@@ -14,7 +14,7 @@ public class InputFrame implements ActionListener
     JLabel heightLabel, widthLabel, spacerLabel;
 
     JButton[] spacerButtons;
-    int spacerNum;
+    private int spacerNum;
 
     JButton check, solve;
 
@@ -82,12 +82,12 @@ public class InputFrame implements ActionListener
 
         solve = new JButton("Solve");
         check = new JButton("check");
+        solve.addActionListener(this);
+        check.addActionListener(this);
         solvePanel = new JPanel();
         solvePanel.add(check);
         solvePanel.add(solve);
         mainPanel.add(solvePanel, BorderLayout.EAST);
-        solve.addActionListener(this);
-        check.addActionListener(this);
     }
 
     @Override
@@ -155,5 +155,10 @@ public class InputFrame implements ActionListener
     public JLabel getWidthLabel()
     {
         return widthLabel;
+    }
+
+    public int getSpacerNum()
+    {
+        return spacerNum;
     }
 }

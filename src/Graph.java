@@ -13,7 +13,7 @@ public class Graph
     {
         graph = readGraph(gui.getPf());
         validColor = readValidColors(gui.getVCf());
-        print();
+        //print();
     }
 
     public Graph(ArrayList<ArrayList<Node>> graph, GUI gui)
@@ -138,7 +138,7 @@ public class Graph
             System.out.print("|");
             for(ArrayList<Node> nodes : graph)
             {
-                System.out.print(nodes.get(i).printColor() + " |");
+                System.out.print(nodes.get(i).printColor() + "s |");
             }
             System.out.println();
         }
