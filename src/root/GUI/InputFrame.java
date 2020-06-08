@@ -1,9 +1,11 @@
-package GUI;
+package root.GUI;
+import root.Node;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class InputFrame implements ActionListener
 {
@@ -133,13 +135,26 @@ public class InputFrame implements ActionListener
 
     public boolean check()//returns true if the input is valid
     {
-        //TODO
+        ArrayList<ArrayList<Node>> data = parse(gui.getPf().getColorButtons());
+        for(int i = 0; i < data.size(); i++)
+        {
+            for(int j = 0; j < data.get(i).size(); j++)
+            {
+                System.out.print(data.get(i).get(j));
+            }
+            System.out.println();
+        }
         return false;
     }
 
     public void solve()
     {
         //TODO
+    }
+
+    public ArrayList<ArrayList<Node>> parse(ArrayList<ActionListener<JButton>> data)
+    {
+        return null;
     }
 
     public JPanel getMainPanel()

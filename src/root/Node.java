@@ -1,3 +1,5 @@
+package root;
+
 public class Node {
     /*
     0: empty node

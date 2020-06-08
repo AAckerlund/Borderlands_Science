@@ -1,4 +1,4 @@
-package GUI;
+package root.GUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,7 @@ public class PuzzleFrame implements ActionListener
     GUI gui;
     JPanel mainPanel;
 
-    ArrayList<ArrayList<JButton>> colorButtons;
+    private ArrayList<ArrayList<JButton>> colorButtons;
 
     ImageIcon empty, spacer, amara, zane, flak, moze;
 

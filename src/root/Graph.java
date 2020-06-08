@@ -1,6 +1,8 @@
-import GUI.ValidColorFrame;
-import GUI.GUI;
-import GUI.PuzzleFrame;
+package root;
+
+import root.GUI.ValidColorFrame;
+import root.GUI.GUI;
+import root.GUI.PuzzleFrame;
 
 import javax.swing.*;
 import java.util.ArrayList;
