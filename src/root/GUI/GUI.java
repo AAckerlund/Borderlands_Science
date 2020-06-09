@@ -1,5 +1,7 @@
 package root.GUI;
 
+import root.Driver;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,13 +12,13 @@ public class GUI extends JFrame// implements ActionListener
     private InputFrame inf;
     private ValidColorFrame vcf;
 
-    public GUI()
+    public GUI(Driver driver)
     {
         //initialize frame
         frame = new JFrame("Borderlands Science Solver");
         pf = new PuzzleFrame(this);
         vcf = new ValidColorFrame(this);
-        inf = new InputFrame(this);
+        inf = new InputFrame(this, driver);
 
         //add panels to frame
         frame.add(pf.getMainPanel(), BorderLayout.CENTER);

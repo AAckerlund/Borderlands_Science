@@ -1,23 +1,16 @@
 package root;
 
-import GUI.GUI;
+import root.GUI.GUI;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Driver
 {
-    Graph g;
     Graph best;//stores the graph with the highest calculated score.
-    int maxSpacers, spacersLeft;
     GUI gui;
     public Driver()
     {
-        gui = new GUI();
-        g = new Graph(gui);
-        best = g;
-        spacersLeft = maxSpacers;
+        gui = new GUI(this);
         //best = solve(best, gui.getInf().getSpacerNum(), Integer.MIN_VALUE, 0, 0);
         //print(best);
     }
@@ -34,7 +27,7 @@ public class Driver
                 {
                     if(graph.insertNode(j, i))//if we can insert a spacer node
                     {
-                        int tmpScore = score(graph.getGraph());
+                        int tmpScore = score(graph);
                         if(high < tmpScore)//if the new score is higher than the current best
                         {
                             //store the new high score and associated graph
@@ -42,9 +35,9 @@ public class Driver
                             best = new Graph(graph.getGraph(), gui);
                         }
                         Graph tmp = solve(graph, spacersLeft -= 1, high, i, j);
-                        if(score(tmp.getGraph()) > score(best.getGraph()))
+                        if(score(tmp) > score(best))
                         {
-                            high = score(tmp.getGraph());
+                            high = score(tmp);
                             best = new Graph(tmp.getGraph(), gui);
                         }
                         graph.removeNode(j, i);
@@ -65,14 +58,15 @@ public class Driver
      * @param graph the graph being scored
      * @return the score of the given graph
      */
-    public int score(ArrayList<ArrayList<Node>> graph)
+    public int score(Graph graph)
     {
         int score = 0;
-        for(int i = 0; i < graph.get(0).size(); i++)
+        ArrayList<ArrayList<Node>> data = graph.getGraph();
+        for(int i = 0; i < data.size(); i++)
         {
-            for(ArrayList<Node> nodes : graph)
+            for(int j = 0; j < data.get(i).size(); j++)
             {
-                if((nodes.get(i).getColor() == g.getValidColor()[i][0].getColor() || nodes.get(i).getColor() == g.getValidColor()[i][1].getColor()) && nodes.get(i).getColor() != 0)
+                if((data.get(i).get(j).getColor() == graph.getValidColor()[i][0].getColor() || data.get(i).get(j).getColor() == graph.getValidColor()[i][1].getColor()) && data.get(i).get(j).getColor() != 0)
                 {
                     score++;
                 }
@@ -91,11 +85,11 @@ public class Driver
      * @param graph the graph being checked
      * @return true if all blocks in the row are valid, false otherwise
      */
-    public boolean checkRow(int row, ArrayList<ArrayList<Node>> graph)
+    public boolean checkRow(int row, Graph graph)
     {
-        for(ArrayList<Node> nodes : graph)
+        for(ArrayList<Node> nodes : graph.getGraph())
         {
-            if((nodes.get(row).getColor() != g.getValidColor()[row][0].getColor() && nodes.get(row).getColor() != g.getValidColor()[row][1].getColor()) || nodes.get(row).getColor() == 0)
+            if((nodes.get(row).getColor() != graph.getValidColor()[row][0].getColor() && nodes.get(row).getColor() != graph.getValidColor()[row][1].getColor()) || nodes.get(row).getColor() == 0)
             {
                 return false;
             }
@@ -109,16 +103,16 @@ public class Driver
      */
     public void print(Graph graph)
     {
-        System.out.println("The best possible score is: " + score(graph.getGraph()));
+        System.out.println("The best possible score is: " + score(graph));
         System.out.println("It can be achieved using the following graph:");
-        for(int i = 0; i < graph.getGraph().get(0).size(); i++)
+        for(int i = 0; i < graph.getGraph().size(); i++)
         {
-            System.out.print(g.getValidColor()[i][0].printColor() + " |");
-            System.out.print(g.getValidColor()[i][1].printColor() + " |");
+            System.out.print(graph.getValidColor()[i][0].printColor() + " |");
+            System.out.print(graph.getValidColor()[i][1].printColor() + " |");
             System.out.print("|");
-            for(ArrayList<Node> nodes : graph.getGraph())
+            for(int j = 0; j < graph.getGraph().get(i).size(); j++)
             {
-                System.out.print(nodes.get(i).printColor() + " |");
+                System.out.print(graph.getGraph().get(i).get(j).printColor() + " |");
             }
             System.out.println();
         }

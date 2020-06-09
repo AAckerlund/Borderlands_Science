@@ -1,4 +1,7 @@
 package root.GUI;
+import jdk.nashorn.internal.scripts.JO;
+import root.Driver;
+import root.Graph;
 import root.Node;
 
 import javax.swing.*;
@@ -9,6 +12,7 @@ import java.util.ArrayList;
 
 public class InputFrame implements ActionListener
 {
+    Driver driver;
     GUI gui;
     JPanel mainPanel, puzzleInputPanel, spacerPanel, solvePanel;
 
@@ -20,8 +24,9 @@ public class InputFrame implements ActionListener
 
     JButton check, solve;
 
-    public InputFrame(GUI gui)
+    public InputFrame(GUI gui, Driver driver)
     {
+        this.driver = driver;
         this.gui = gui;
         mainPanel = new JPanel();
         puzzleInputPanel = new JPanel();
@@ -122,39 +127,124 @@ public class InputFrame implements ActionListener
 
         if(action == check)
         {
-            check();
+            check(gui.getPf().getColorButtons());
         }
         if(action == solve)
         {
-            if(check())
-            {
-                solve();
-            }
+            solve();
         }
     }
 
-    public boolean check()//returns true if the input is valid
+    public boolean check(ArrayList<ArrayList<JButton>> data)//returns true if the input is valid
     {
-        ArrayList<ArrayList<Node>> data = parse(gui.getPf().getColorButtons());
-        for(int i = 0; i < data.size(); i++)
+        //System.out.println("\nStarting check");
+        ArrayList<ArrayList<Node>> graph = ButtonToNode(data);
+        boolean found;
+        for(int i = 0; i < graph.get(0).size(); i++)
         {
-            for(int j = 0; j < data.get(i).size(); j++)
+            found = false;
+            for(ArrayList<Node> nodes : graph)
             {
-                System.out.print(data.get(i).get(j));
+                //System.out.print(nodes.get(i).getColor() + " | ");
+                if(nodes.get(i).getColor() == 0 && found)//if we have found a scorable node already and we come across an empty node then the board is invalid.
+                {
+                    JOptionPane.showMessageDialog(null, "Invalid Graph");
+                    return false;
+                }
+                if(!found && nodes.get(i).getColor() != 0)//found the first scorable node in a column
+                {
+                    found = true;
+                }
+
             }
-            System.out.println();
+            //System.out.println();
         }
-        return false;
+        //System.out.println("Its good");
+        JOptionPane.showMessageDialog(null, "This is a valid graph");
+        return true;
     }
 
     public void solve()
     {
-        //TODO
+        if(check(gui.getPf().getColorButtons()))
+        {
+            ArrayList<ArrayList<Node>> graph = ButtonToNode(gui.getPf().getColorButtons());
+            Graph solution = driver.solve(new Graph(graph, gui), spacerNum, Integer.MIN_VALUE, 0, 0);
+//            driver.print(solution);
+            display(solution);
+            gui.getPf().addButtons();
+            System.out.println("Done");
+            //TODO debug why its not updating the gui
+        }
     }
 
-    public ArrayList<ArrayList<Node>> parse(ArrayList<ActionListener<JButton>> data)
+    public void display(Graph g)
     {
-        return null;
+        ArrayList<ArrayList<JButton>> buttons = new ArrayList<>();
+        for(int i = 0; i < g.getGraph().size(); i++)
+        {
+            buttons.add(new ArrayList<>());
+            for(int j = 0; j < g.getGraph().get(i).size(); j++)
+            {
+                buttons.get(i).add(new JButton());
+                switch(g.getGraph().get(i).get(j).getColor())
+                {
+                    case 1:
+                        buttons.get(i).get(j).setIcon(gui.getPf().getFlak());
+                        break;
+                    case 2:
+                        buttons.get(i).get(j).setIcon(gui.getPf().getZane());
+                        break;
+                    case 3:
+                        buttons.get(i).get(j).setIcon(gui.getPf().getAmara());
+                        break;
+                    case 4:
+                        buttons.get(i).get(j).setIcon(gui.getPf().getMoze());
+                        break;
+                    case 9:
+                        buttons.get(i).get(j).setIcon(gui.getPf().getSpacer());
+                        break;
+                    default://case 0
+                        buttons.get(i).get(j).setIcon(gui.getPf().getEmpty());
+                        break;
+                }
+            }
+        }
+        gui.getPf().setColorButtons(buttons);
+    }
+
+    public ArrayList<ArrayList<Node>> ButtonToNode(ArrayList<ArrayList<JButton>> data)
+    {
+        ArrayList<ArrayList<Node>> graph = new ArrayList<>();
+        for(int i = 0; i < data.size(); i++)
+        {
+            graph.add(new ArrayList<>());
+            for(int j = 0; j < data.get(i).size(); j++)
+            {
+                switch(data.get(i).get(j).getIcon().toString())
+                {
+                    case "images/moze.png":
+                        graph.get(i).add(new Node(4));
+                        break;
+                    case "images/amara.png":
+                        graph.get(i).add(new Node(3));
+                        break;
+                    case "images/zane.png":
+                        graph.get(i).add(new Node(2));
+                        break;
+                    case "images/flak.png":
+                        graph.get(i).add(new Node(1));
+                        break;
+                    case "images/spacer/png":
+                        graph.get(i).add(new Node(9));
+                        break;
+                    default://case "images/blank.png" || "images/empty/png" or something got messed up
+                        graph.get(i).add(new Node(0));
+                        break;
+                }
+            }
+        }
+        return graph;
     }
 
     public JPanel getMainPanel()
