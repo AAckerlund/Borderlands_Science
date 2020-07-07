@@ -11,6 +11,7 @@ public class Graph
 {
     private ArrayList<ArrayList<Node>> graph;
     private Node[][] validColor;
+
     public Graph(GUI gui)
     {
         graph = readGraph(gui.getPf());
@@ -30,6 +31,13 @@ public class Graph
         }
         validColor = readValidColors(gui.getVCf());
     }
+
+    /**
+     * insert a Node at the given location
+     * @param row the row we want to insert the node into
+     * @param col the column we want to insert the node into
+     * @return true if we successfully inserted the node, false otherwise
+     */
     public boolean insertNode(int row, int col)
     {
         try
@@ -49,6 +57,11 @@ public class Graph
         return true;
     }
 
+    /**
+     * removes a given Node
+     * @param row the row of the node we want to remove
+     * @param col the column of the node we want to remove
+     */
     public void removeNode(int row, int col)
     {
         graph.get(row).remove(col);
@@ -56,7 +69,7 @@ public class Graph
     }
 
     /**
-     * reads in graph from file
+     * reads in graph from the gui
      * @return a ready to use graph
      */
     public ArrayList<ArrayList<Node>> readGraph(PuzzleFrame pf)
@@ -90,6 +103,11 @@ public class Graph
         return valid;
     }
 
+    /**
+     * converts icons to ints for easy manipulation
+     * @param icon the icon we want to convert to its corresponding int
+     * @return the integer value of the associated icon
+     */
     public int iconToInt(ImageIcon icon)
     {
         switch(icon.getDescription())

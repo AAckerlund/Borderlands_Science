@@ -7,11 +7,22 @@ import java.util.ArrayList;
 public class Driver
 {
     GUI gui;
+
     public Driver()
     {
         gui = new GUI(this);
     }
-    public Graph solve(Graph graph, int spacersLeft, int highScore, int row, int col)//Will attempt to brute-force the best (highest scoring) solution to the problem.
+
+    /**
+     * performs a brute force algorithm to find the optimal solution
+     * @param graph the current instance of the graph that the algorithm is working on
+     * @param spacersLeft the number of spacer blocks the algorithm has to work with
+     * @param highScore current highest achieved score
+     * @param row the current row the algorithm is on (part of an attempt to decrease runtime)
+     * @param col the current column the algorithm is on (part of an attempt to decrease run time)
+     * @return the most optimal (highest scoring) graph the algorithm has found
+     */
+    public Graph solve(Graph graph, int spacersLeft, int highScore, int row, int col)
     {
         Graph best = new Graph(graph.getGraph(), gui);
         int high = highScore;

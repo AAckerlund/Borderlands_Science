@@ -31,6 +31,7 @@ public class PuzzleFrame implements ActionListener
         //initialize main buttons
         colorButtons = new ArrayList<>();
 
+        //initialize the color buttons
         for(int i = 0; i < 4; i++)
         {
             colorButtons.add(new ArrayList<>());
@@ -44,9 +45,10 @@ public class PuzzleFrame implements ActionListener
             }
         }
 
+        //set the layout for the color buttons to a grid with height and width equal to the dimensions of the 2D arraylist
         mainPanel.setLayout(new GridLayout(colorButtons.size(), colorButtons.get(0).size()));
 
-        mainPanel.setBackground(Color.black);
+        mainPanel.setBackground(Color.black);//makes the gui look more professional
     }
 
     @Override
@@ -65,7 +67,12 @@ public class PuzzleFrame implements ActionListener
         }
     }
 
-    public void sizeChange(int i, int j, int numInc)
+    /**
+     * changes the size of the color buttons array
+     * @param i used to determine if we are increasing the height or width
+     * @param numInc how much to increase (or decrease) by
+     */
+    public void sizeChange(int i, int numInc)
     {
         if(i == 0)//height (outer arraylist)
         {
@@ -140,6 +147,9 @@ public class PuzzleFrame implements ActionListener
         resetFrame();
     }
 
+    /**
+     * refreshes the gui to reflect updates made elsewhere in the code
+     */
     public void resetFrame()
     {
         addButtons();
@@ -148,6 +158,9 @@ public class PuzzleFrame implements ActionListener
         gui.resetFrame();
     }
 
+    /**
+     * refreshes all PuzzleFrame buttons by removing and re-adding them to the frame
+     */
     public void addButtons()
     {
         mainPanel.removeAll();

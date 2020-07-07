@@ -34,6 +34,10 @@ public class GUI extends JFrame// implements ActionListener
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
+
+    /**
+     * resets the gui to show updates made elsewhere in the code
+     */
     public void resetFrame()
     {
         frame.pack();
@@ -42,7 +46,12 @@ public class GUI extends JFrame// implements ActionListener
         frame.setLocationRelativeTo(null);
     }
 
-    public Icon buttonChange(Icon img)//cycles through the possible images in the following order: empty -> amara -> zane -> flak -> moze -> empty
+    /**
+     * cycles through the possible images in the following order: empty -> amara -> zane -> flak -> moze -> empty
+     * @param img the current Icon
+     * @return the next Icon in the cycle
+     */
+    public Icon buttonChange(Icon img)
     {
         switch(img.toString())
         {

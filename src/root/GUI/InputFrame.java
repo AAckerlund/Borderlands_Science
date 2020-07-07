@@ -107,7 +107,7 @@ public class InputFrame implements ActionListener
             {
                 if(action == incDecrButtons[i][j])//changing the size of the board
                 {
-                    gui.getPf().sizeChange(i, j, Integer.parseInt(incDecrButtons[i][j].getText()));
+                    gui.getPf().sizeChange(i, Integer.parseInt(incDecrButtons[i][j].getText()));
                 }
             }
         }
@@ -134,9 +134,13 @@ public class InputFrame implements ActionListener
         }
     }
 
-    public boolean check(ArrayList<ArrayList<JButton>> data)//returns true if the input is valid
+    /**
+     * checks for a valid graph
+     * @param data the graph to check
+     * @return true if valid, false otherwise
+     */
+    public boolean check(ArrayList<ArrayList<JButton>> data)
     {
-        //System.out.println("\nStarting check");
         ArrayList<ArrayList<Node>> graph = ButtonToNode(data);
         boolean found;
         for(ArrayList<Node> nodes : graph)
@@ -160,6 +164,9 @@ public class InputFrame implements ActionListener
         return true;
     }
 
+    /**
+     * starts the execution of the solving algorithm
+     */
     public void solve()
     {
         if(check(gui.getPf().getColorButtons()))
@@ -170,6 +177,10 @@ public class InputFrame implements ActionListener
         }
     }
 
+    /**
+     * displays a graph to the gui
+     * @param g the graph to display
+     */
     public void display(Graph g)
     {
         ArrayList<ArrayList<JButton>> buttons = new ArrayList<>();
@@ -205,6 +216,11 @@ public class InputFrame implements ActionListener
         gui.getPf().setColorButtons(buttons);
     }
 
+    /**
+     * takes a 2d list of buttons and converts it to a 2d list of Nodes for easy manipulation
+     * @param data the 2d list of buttons to get converted
+     * @return a 2d list of nodes that correspond to the given inputf
+     */
     public ArrayList<ArrayList<Node>> ButtonToNode(ArrayList<ArrayList<JButton>> data)
     {
         ArrayList<ArrayList<Node>> graph = new ArrayList<>();

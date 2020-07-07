@@ -59,6 +59,10 @@ public class ValidColorFrame implements ActionListener
         }
     }
 
+    /**
+     * changes the size of the valid colors section of the gui
+     * @param k the row where we are adding a new set of valid color buttons
+     */
     public void sizeChange(int k)
     {
         getBonusButtons().add(new JButton[2]);
