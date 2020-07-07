@@ -87,6 +87,7 @@ public class Driver
                 score++;
             }
         }
+        gui.getFrame().setTitle("Borderlands Science Solver (Score: " + score + ")");
         return score;
     }
 

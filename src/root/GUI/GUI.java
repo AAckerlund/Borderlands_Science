@@ -5,9 +5,9 @@ import root.Driver;
 import javax.swing.*;
 import java.awt.*;
 
-public class GUI extends JFrame// implements ActionListener
+public class GUI extends JFrame
 {
-    JFrame frame;
+    private JFrame frame;
     private PuzzleFrame pf;
     private InputFrame inf;
     private ValidColorFrame vcf;
@@ -88,5 +88,10 @@ public class GUI extends JFrame// implements ActionListener
     public InputFrame getInf()
     {
         return inf;
+    }
+
+    public JFrame getFrame()
+    {
+        return frame;
     }
 }
