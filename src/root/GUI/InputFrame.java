@@ -1,5 +1,4 @@
 package root.GUI;
-import jdk.nashorn.internal.scripts.JO;
 import root.Driver;
 import root.Graph;
 import root.Node;
@@ -140,18 +139,18 @@ public class InputFrame implements ActionListener
         //System.out.println("\nStarting check");
         ArrayList<ArrayList<Node>> graph = ButtonToNode(data);
         boolean found;
-        for(int i = 0; i < graph.get(0).size(); i++)
+        for(int i = 0; i < graph.size(); i++)
         {
             found = false;
-            for(ArrayList<Node> nodes : graph)
+            for(int j = 0; j < graph.get(i).size(); j++)
             {
                 //System.out.print(nodes.get(i).getColor() + " | ");
-                if(nodes.get(i).getColor() == 0 && found)//if we have found a scorable node already and we come across an empty node then the board is invalid.
+                if(graph.get(i).get(j).getColor() == 0 && found)//if we have found a scorable node already and we come across an empty node then the board is invalid.
                 {
                     JOptionPane.showMessageDialog(null, "Invalid Graph");
                     return false;
                 }
-                if(!found && nodes.get(i).getColor() != 0)//found the first scorable node in a column
+                if(!found && graph.get(i).get(j).getColor() != 0)//found the first scorable node in a column
                 {
                     found = true;
                 }
@@ -169,12 +168,11 @@ public class InputFrame implements ActionListener
         if(check(gui.getPf().getColorButtons()))
         {
             ArrayList<ArrayList<Node>> graph = ButtonToNode(gui.getPf().getColorButtons());
+            System.out.println("starting to solve");
             Graph solution = driver.solve(new Graph(graph, gui), spacerNum, Integer.MIN_VALUE, 0, 0);
-//            driver.print(solution);
+            driver.print(solution);
             display(solution);
-            gui.getPf().addButtons();
-            System.out.println("Done");
-            //TODO debug why its not updating the gui
+            System.out.println("Done solving");
         }
     }
 
@@ -216,12 +214,12 @@ public class InputFrame implements ActionListener
     public ArrayList<ArrayList<Node>> ButtonToNode(ArrayList<ArrayList<JButton>> data)
     {
         ArrayList<ArrayList<Node>> graph = new ArrayList<>();
-        for(int i = 0; i < data.size(); i++)
+        for(int i = 0; i < data.get(0).size(); i++)
         {
             graph.add(new ArrayList<>());
-            for(int j = 0; j < data.get(i).size(); j++)
+            for(int j = 0; j < data.size(); j++)
             {
-                switch(data.get(i).get(j).getIcon().toString())
+                switch(data.get(j).get(i).getIcon().toString())
                 {
                     case "images/moze.png":
                         graph.get(i).add(new Node(4));

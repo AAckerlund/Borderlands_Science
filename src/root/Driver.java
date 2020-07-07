@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Driver
 {
-    Graph best;//stores the graph with the highest calculated score.
     GUI gui;
     public Driver()
     {
@@ -66,11 +65,18 @@ public class Driver
         {
             for(int j = 0; j < data.get(i).size(); j++)
             {
-                if((data.get(i).get(j).getColor() == graph.getValidColor()[i][0].getColor() || data.get(i).get(j).getColor() == graph.getValidColor()[i][1].getColor()) && data.get(i).get(j).getColor() != 0)
+                /*System.out.println(i + " " + j);
+                System.out.println(data.get(i).get(j).getColor());
+                System.out.println(graph.getValidColor()[j][0].getColor());
+                System.out.println(graph.getValidColor()[j][1].getColor());*/
+                if((data.get(i).get(j).getColor() == graph.getValidColor()[j][0].getColor() || data.get(i).get(j).getColor() == graph.getValidColor()[j][1].getColor()) && data.get(i).get(j).getColor() != 0)//(button image == 1st OR 2nd valid color) AND button image is not blank
                 {
                     score++;
                 }
             }
+        }
+        for(int i = 0; i < data.get(0).size(); i++)
+        {
             if(checkRow(i, graph))//1 bonus point for completely filling a row with valid blocks
             {
                 score++;
@@ -105,14 +111,16 @@ public class Driver
     {
         System.out.println("The best possible score is: " + score(graph));
         System.out.println("It can be achieved using the following graph:");
-        for(int i = 0; i < graph.getGraph().size(); i++)
+        for(int i = 0; i < graph.getValidColor().length; i++)
         {
             System.out.print(graph.getValidColor()[i][0].printColor() + " |");
-            System.out.print(graph.getValidColor()[i][1].printColor() + " |");
-            System.out.print("|");
-            for(int j = 0; j < graph.getGraph().get(i).size(); j++)
+            System.out.println(graph.getValidColor()[i][1].printColor() + " |");
+        }
+        for(int i = 0; i < graph.getGraph().get(0).size(); i++)
+        {
+            for(int j = 0; j < graph.getGraph().size(); j++)
             {
-                System.out.print(graph.getGraph().get(i).get(j).printColor() + " |");
+                System.out.print(graph.getGraph().get(j).get(i).printColor() + " |");
             }
             System.out.println();
         }

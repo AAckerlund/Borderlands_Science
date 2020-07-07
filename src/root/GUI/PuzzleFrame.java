@@ -69,7 +69,6 @@ public class PuzzleFrame implements ActionListener
 
     public void sizeChange(int i, int j, int numInc)
     {
-
         if(i == 0)//height (outer arraylist)
         {
             if(numInc < 0)//removing rows
@@ -154,7 +153,7 @@ public class PuzzleFrame implements ActionListener
     public void addButtons()
     {
         mainPanel.removeAll();
-        for(ArrayList<JButton> colorButton : colorButtons)
+        for(ArrayList<JButton> colorButton : colorButtons)//add the "scorable" buttons onto the frame
         {
             for(JButton jButton : colorButton)
             {
@@ -162,7 +161,7 @@ public class PuzzleFrame implements ActionListener
             }
         }
         gui.getVCf().getMainPanel().removeAll();
-        for(int i = 0; i < colorButtons.size(); i++)
+        for(int i = 0; i < colorButtons.size(); i++)//add the valid color buttons back onto the frame
         {
             for(int j = 0; j < 2; j++)
             {
@@ -183,7 +182,18 @@ public class PuzzleFrame implements ActionListener
 
     public void setColorButtons(ArrayList<ArrayList<JButton>> buttons)
     {
-        colorButtons = buttons;
+        //System.out.println(colorButtons.size() + ", " + buttons.size());
+        for(int i = 0; i < colorButtons.size(); i++)
+        {
+            //System.out.println(colorButtons.get(i).size() + ", " + buttons.get(i).size());
+            for(int j = 0; j < colorButtons.get(i).size(); j++)
+            {
+                //System.out.print("( " + colorButtons.get(i).get(j).getIcon().toString() + " ");
+                colorButtons.get(i).get(j).setIcon(buttons.get(j).get(i).getIcon());
+                //System.out.print(colorButtons.get(i).get(j).getIcon().toString() + " )");
+            }
+            //System.out.println();
+        }
     }
 
     public ImageIcon getEmpty()

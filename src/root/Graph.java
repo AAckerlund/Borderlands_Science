@@ -80,10 +80,10 @@ public class Graph
      */
     public Node[][] readValidColors(ValidColorFrame vcf)
     {
-        Node[][] valid = new Node[graph.size()][2];
+        Node[][] valid = new Node[graph.get(0).size()][2];
         for(int i = 0; i < valid.length; i++)
         {
-            for(int j = 0; j < valid[i].length; j++)
+            for(int j = 0; j < 2; j++)
             {
                 valid[i][j] = new Node(iconToInt((ImageIcon) vcf.getBonusButtons().get(i)[j].getIcon()));
             }
