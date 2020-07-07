@@ -139,26 +139,23 @@ public class InputFrame implements ActionListener
         //System.out.println("\nStarting check");
         ArrayList<ArrayList<Node>> graph = ButtonToNode(data);
         boolean found;
-        for(int i = 0; i < graph.size(); i++)
+        for(ArrayList<Node> nodes : graph)
         {
             found = false;
-            for(int j = 0; j < graph.get(i).size(); j++)
+            for(Node node : nodes)
             {
-                //System.out.print(nodes.get(i).getColor() + " | ");
-                if(graph.get(i).get(j).getColor() == 0 && found)//if we have found a scorable node already and we come across an empty node then the board is invalid.
+                if(node.getColor() == 0 && found)//if we have found a scorable node already and we come across an empty node then the board is invalid.
                 {
                     JOptionPane.showMessageDialog(null, "Invalid Graph");
                     return false;
                 }
-                if(!found && graph.get(i).get(j).getColor() != 0)//found the first scorable node in a column
+                if(!found && node.getColor() != 0)//found the first scorable node in a column
                 {
                     found = true;
                 }
 
             }
-            //System.out.println();
         }
-        //System.out.println("Its good");
         JOptionPane.showMessageDialog(null, "This is a valid graph");
         return true;
     }
@@ -168,11 +165,8 @@ public class InputFrame implements ActionListener
         if(check(gui.getPf().getColorButtons()))
         {
             ArrayList<ArrayList<Node>> graph = ButtonToNode(gui.getPf().getColorButtons());
-            System.out.println("starting to solve");
             Graph solution = driver.solve(new Graph(graph, gui), spacerNum, Integer.MIN_VALUE, 0, 0);
-            driver.print(solution);
             display(solution);
-            System.out.println("Done solving");
         }
     }
 
@@ -217,9 +211,9 @@ public class InputFrame implements ActionListener
         for(int i = 0; i < data.get(0).size(); i++)
         {
             graph.add(new ArrayList<>());
-            for(int j = 0; j < data.size(); j++)
+            for(ArrayList<JButton> datum : data)
             {
-                switch(data.get(j).get(i).getIcon().toString())
+                switch(datum.get(i).getIcon().toString())
                 {
                     case "images/moze.png":
                         graph.get(i).add(new Node(4));
@@ -258,10 +252,5 @@ public class InputFrame implements ActionListener
     public JLabel getWidthLabel()
     {
         return widthLabel;
-    }
-
-    public int getSpacerNum()
-    {
-        return spacerNum;
     }
 }

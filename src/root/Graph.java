@@ -15,7 +15,6 @@ public class Graph
     {
         graph = readGraph(gui.getPf());
         validColor = readValidColors(gui.getVCf());
-        //print();
     }
 
     public Graph(ArrayList<ArrayList<Node>> graph, GUI gui)
@@ -107,42 +106,6 @@ public class Graph
                 return 4;
             default:
                 return 0;
-        }
-    }
-
-    /**
-     * prints the valid colors for each row
-     */
-    public void printValidColors()
-    {
-        System.out.println("printValidColors");
-        for(Node[] nodes : validColor)
-        {
-            for(Node node : nodes)
-            {
-                System.out.print(node.printColor());
-            }
-            System.out.println();
-        }
-    }
-
-    /**
-     * prints all data for the graph as it appears in the graph.
-     */
-    public void print()
-    {
-        System.out.println("Starting Graph");
-
-        for(int i = 0; i < graph.get(0).size(); i++)
-        {
-//            System.out.print(validColor[i][0].printColor() + " |");
-//            System.out.print(validColor[i][1].printColor() + " |");
-            System.out.print("|");
-            for(ArrayList<Node> nodes : graph)
-            {
-                System.out.print(nodes.get(i).printColor() + "s |");
-            }
-            System.out.println();
         }
     }
 

@@ -10,8 +10,6 @@ public class Driver
     public Driver()
     {
         gui = new GUI(this);
-        //best = solve(best, gui.getInf().getSpacerNum(), Integer.MIN_VALUE, 0, 0);
-        //print(best);
     }
     public Graph solve(Graph graph, int spacersLeft, int highScore, int row, int col)//Will attempt to brute-force the best (highest scoring) solution to the problem.
     {
@@ -61,15 +59,11 @@ public class Driver
     {
         int score = 0;
         ArrayList<ArrayList<Node>> data = graph.getGraph();
-        for(int i = 0; i < data.size(); i++)
+        for(ArrayList<Node> datum : data)
         {
-            for(int j = 0; j < data.get(i).size(); j++)
+            for(int j = 0; j < datum.size(); j++)
             {
-                /*System.out.println(i + " " + j);
-                System.out.println(data.get(i).get(j).getColor());
-                System.out.println(graph.getValidColor()[j][0].getColor());
-                System.out.println(graph.getValidColor()[j][1].getColor());*/
-                if((data.get(i).get(j).getColor() == graph.getValidColor()[j][0].getColor() || data.get(i).get(j).getColor() == graph.getValidColor()[j][1].getColor()) && data.get(i).get(j).getColor() != 0)//(button image == 1st OR 2nd valid color) AND button image is not blank
+                if((datum.get(j).getColor() == graph.getValidColor()[j][0].getColor() || datum.get(j).getColor() == graph.getValidColor()[j][1].getColor()) && datum.get(j).getColor() != 0)//(button image == 1st OR 2nd valid color) AND button image is not blank
                 {
                     score++;
                 }
@@ -101,29 +95,6 @@ public class Driver
             }
         }
         return true;
-    }
-
-    /**
-     * prints out a given graph
-     * @param graph the graph to be printed
-     */
-    public void print(Graph graph)
-    {
-        System.out.println("The best possible score is: " + score(graph));
-        System.out.println("It can be achieved using the following graph:");
-        for(int i = 0; i < graph.getValidColor().length; i++)
-        {
-            System.out.print(graph.getValidColor()[i][0].printColor() + " |");
-            System.out.println(graph.getValidColor()[i][1].printColor() + " |");
-        }
-        for(int i = 0; i < graph.getGraph().get(0).size(); i++)
-        {
-            for(int j = 0; j < graph.getGraph().size(); j++)
-            {
-                System.out.print(graph.getGraph().get(j).get(i).printColor() + " |");
-            }
-            System.out.println();
-        }
     }
 
     public static void main(String[] args)

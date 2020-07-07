@@ -26,15 +26,13 @@ public class GUI extends JFrame// implements ActionListener
         frame.add(vcf.getMainPanel(), BorderLayout.WEST);
 
         frame.add(inf.getMainPanel(), BorderLayout.SOUTH);
+
         //more frame stuff
-        //frame.setSize(500,500);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        //sf = new SpacerFrame();
     }
     public void resetFrame()
     {

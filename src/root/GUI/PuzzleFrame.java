@@ -1,7 +1,5 @@
 package root.GUI;
 
-import root.Graph;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -182,17 +180,12 @@ public class PuzzleFrame implements ActionListener
 
     public void setColorButtons(ArrayList<ArrayList<JButton>> buttons)
     {
-        //System.out.println(colorButtons.size() + ", " + buttons.size());
         for(int i = 0; i < colorButtons.size(); i++)
         {
-            //System.out.println(colorButtons.get(i).size() + ", " + buttons.get(i).size());
             for(int j = 0; j < colorButtons.get(i).size(); j++)
             {
-                //System.out.print("( " + colorButtons.get(i).get(j).getIcon().toString() + " ");
                 colorButtons.get(i).get(j).setIcon(buttons.get(j).get(i).getIcon());
-                //System.out.print(colorButtons.get(i).get(j).getIcon().toString() + " )");
             }
-            //System.out.println();
         }
     }
 
