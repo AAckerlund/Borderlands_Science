@@ -3,6 +3,8 @@ Borderlands_Science.iml
 .idea/
 out/
 META-INF/
+root/
 
+MANIFEST.MF
 graph.txt
 validColors.txt
