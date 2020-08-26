@@ -1,0 +1,1 @@
+jar cmf [manifest].MF [jar name].jar [space deliminated list of files to have in the jar]
