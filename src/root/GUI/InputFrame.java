@@ -231,22 +231,22 @@ public class InputFrame implements ActionListener
             {
                 switch(datum.get(i).getIcon().toString())
                 {
-                    case "images/moze.png":
+                    case "./images/moze.png":
                         graph.get(i).add(new Node(4));
                         break;
-                    case "images/amara.png":
+                    case "./images/amara.png":
                         graph.get(i).add(new Node(3));
                         break;
-                    case "images/zane.png":
+                    case "./images/zane.png":
                         graph.get(i).add(new Node(2));
                         break;
-                    case "images/flak.png":
+                    case "./images/flak.png":
                         graph.get(i).add(new Node(1));
                         break;
-                    case "images/spacer/png":
+                    case "./images/spacer/png":
                         graph.get(i).add(new Node(9));
                         break;
-                    default://case "images/blank.png" || "images/empty/png" or something got messed up
+                    default://case "./images/blank.png" || "./images/empty.png" or something got messed up
                         graph.get(i).add(new Node(0));
                         break;
                 }

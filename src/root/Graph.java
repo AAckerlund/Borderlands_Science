@@ -112,15 +112,15 @@ public class Graph
     {
         switch(icon.getDescription())
         {
-            case "images/spacer.png":
+            case "./images/spacer.png":
                 return 9;
-            case "images/flak.png":
+            case "./images/flak.png":
                 return 1;
-            case "images/zane.png":
+            case "./images/zane.png":
                 return 2;
-            case "images/amara.png":
+            case "./images/amara.png":
                 return 3;
-            case "images/moze.png":
+            case "./images/moze.png":
                 return 4;
             default:
                 return 0;

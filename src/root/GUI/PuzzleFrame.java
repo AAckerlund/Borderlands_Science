@@ -18,12 +18,12 @@ public class PuzzleFrame implements ActionListener
     public PuzzleFrame(GUI gui)
     {
         this.gui = gui;
-        empty = new ImageIcon("images/empty.png");
-        spacer = new ImageIcon("images/spacer.png");
-        amara = new ImageIcon("images/amara.png");
-        zane = new ImageIcon("images/zane.png");
-        flak = new ImageIcon("images/flak.png");
-        moze = new ImageIcon("images/moze.png");
+        empty = new ImageIcon("./images/empty.png");
+        spacer = new ImageIcon("./images/spacer.png");
+        amara = new ImageIcon("./images/amara.png");
+        zane = new ImageIcon("./images/zane.png");
+        flak = new ImageIcon("./images/flak.png");
+        moze = new ImageIcon("./images/moze.png");
 
         //initialize panels
         mainPanel = new JPanel();

@@ -55,21 +55,21 @@ public class GUI extends JFrame
     {
         switch(img.toString())
         {
-            case "images/empty.png":
-            case "images/blank.png":
-                img = new ImageIcon("images/amara.png");
+            case "./images/empty.png":
+            case "./images/blank.png":
+                img = new ImageIcon("./images/amara.png");
                 break;
-            case "images/amara.png":
-                img = new ImageIcon("images/zane.png");
+            case "./images/amara.png":
+                img = new ImageIcon("./images/zane.png");
                 break;
-            case "images/zane.png":
-                img = new ImageIcon("images/flak.png");
+            case "./images/zane.png":
+                img = new ImageIcon("./images/flak.png");
                 break;
-            case "images/flak.png":
-                img = new ImageIcon("images/moze.png");
+            case "./images/flak.png":
+                img = new ImageIcon("./images/moze.png");
                 break;
-            default://case "images/moze.png" or something got messed up
-                img = new ImageIcon("images/empty.png");
+            default://case "./images/moze.png" or something got messed up
+                img = new ImageIcon("./images/empty.png");
                 break;
         }
         return img;
