@@ -1,1 +1,5 @@
 jar cmf [manifest].MF [jar name].jar [space deliminated list of files to have in the jar]
+
+Contents of [manifest].MF
+Manifest-Version: [version]
+Main-Class: [class that contains main() with no file extension]
